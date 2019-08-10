@@ -6,33 +6,37 @@
 /*   By: dagarcia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 21:54:17 by dagarcia          #+#    #+#             */
-/*   Updated: 2019/08/06 22:01:18 by dagarcia         ###   ########.fr       */
+/*   Updated: 2019/08/09 15:47:28 by dagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
-	int		i;
-	int		nbr;
-	int		sign;
+	int				i;
+	long long int	result;
+	long long int	neg;
 
 	i = 0;
-	nbr = 0;
-	sign = 1;
-	while (str[i] < 33)
+	neg = 1;
+	result = 0;
+	while (str[i] == 32 || str[i] == 10 || str[i] == 9 || str[i] == 12 ||
+			str[i] == 13 || str[i] == 11)
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			sign = -1;
+			neg = -1;
 		i++;
 	}
-	while (str[i] && ft_isdigit(str[i]))
+	while (str[i])
 	{
-		nbr = nbr * 10 + str[i] - '0';
+		if (str[i] < 48 || 57 < str[i])
+			return (result * neg);
+		else
+			result = (result * 10) + (long long int)(str[i] - '0');
 		i++;
 	}
-	return (nbr * sign);
+	return (result * neg);
 }
